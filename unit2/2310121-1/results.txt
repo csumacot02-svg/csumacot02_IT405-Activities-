@@ -1,0 +1,71 @@
+STEP 2 -- the count is 2 to the power n
+  n = 1: 2 rows (2^1 = 2)
+  n = 2: 4 rows (2^2 = 4)
+  n = 3: 8 rows (2^3 = 8)
+  n = 4: 16 rows (2^4 = 16)
+
+STEP 4 -- p or not p
+  p     | value
+  False | True
+  True  | True
+  -> tautology (true on every row)
+STEP 4 -- p and not p
+  p     | value
+  False | False
+  True  | False
+  -> contradiction (false on every row)
+
+STEP 6 -- De Morgan: not (p and q)
+  p      q     | value
+  False  False | True
+  False  True  | True
+  True   False | True
+  True   True  | False
+STEP 6 -- (not p) or (not q)
+  p      q     | value
+  False  False | True
+  False  True  | True
+  True   False | True
+  True   True  | False
+  equivalent: True
+
+STEP 7 -- p implies q
+  p      q     | value
+  False  False | True
+  False  True  | True
+  True   False | False
+  True   True  | True
+STEP 7 -- not p or q
+  p      q     | value
+  False  False | True
+  False  True  | True
+  True   False | False
+  True   True  | True
+  equivalent: True
+
+STEP 8 -- my own E1 = (q and (r or p)) and E2 = ((q and r) or p) over ['p', 'q', 'r']
+E1:
+  p      q      r     | value
+  False  False  False | False
+  False  False  True  | False
+  False  True   False | False
+  False  True   True  | True
+  True   False  False | False
+  True   False  True  | False
+  True   True   False | True
+  True   True   True  | True
+E2:
+  p      q      r     | value
+  False  False  False | False
+  False  False  True  | False
+  False  True   False | False
+  False  True   True  | True
+  True   False  False | True
+  True   False  True  | True
+  True   True   False | True
+  True   True   True  | True
+  equivalent: False | differing row: p=True,q=False,r=False
+
+STEP 9 -- equivalent(('or', 'p', 'q'), ('or', 'p', ('or', 'q', 'r')), [p, q])  -- the second expression also uses r
+  -> KeyError: 'r'   (r was never given a value, so the checker cannot answer)
+  with the fix, over every variable of both (p, q, r): False | differing row: p=False,q=False,r=True

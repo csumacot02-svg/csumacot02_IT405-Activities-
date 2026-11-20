@@ -1,0 +1,10 @@
+Step 9 note — incomplete variable lists
+
+When I call equivalent(('or', 'p', 'q'), ('or', 'p', ('or', 'q', 'r')), ['p', 'q']),
+fill() raises KeyError: 'r' because the second expression mentions r, but the
+variable list never assigns a value to r. That answer cannot be trusted: equivalence
+is only established over the assignments actually enumerated, and r was never varied.
+
+Fix: collect every variable that appears in EITHER expression (variables_of), sort
+them, and run equivalent over that complete list. With [p, q, r] the same pair is
+not equivalent; a differing row is p=False,q=False,r=True.

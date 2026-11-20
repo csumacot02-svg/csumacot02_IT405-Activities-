@@ -1,0 +1,19 @@
+Step 8 note — cyclic fact parent(olen, olen)
+
+When I add STEP8 as parent(olen, olen) for that query only (FACTS + [STEP8], never
+into FACTS) and ask for all ancestors again, the search does not finish. With the
+depth bound of 60 the engine raises:
+
+  RuntimeError: depth bound of 60 rule steps reached -- the search keeps going
+  deeper without the goal getting smaller
+
+Without the depth bound, Python itself fails with:
+
+  RecursionError: maximum recursion depth exceeded
+
+Why: parent(olen, olen) lets proving an ancestor involving olen ask the same goal
+again with nothing made smaller, so the recursive ancestor rule never bottoms out.
+
+One way the engine could survive it: remember the goals currently being proved and
+refuse to start the same goal again (or refuse the cyclic fact before querying).
+A depth bound only fails usefully; it does not fix the cycle.
