@@ -1,0 +1,34 @@
+﻿STEP 1 -- Python version on this computer: 3.13.7
+
+STEP 4 -- every function on every combination (compare with the paper table)
+  my_not(True ) = False
+  my_not(False) = True
+  my_and(True , True ) = True
+  my_and(True , False) = False
+  my_and(False, True ) = False
+  my_and(False, False) = False
+  my_or(True , True ) = True
+  my_or(True , False) = True
+  my_or(False, True ) = True
+  my_or(False, False) = False
+  my_implies(True , True ) = True
+  my_implies(True , False) = False
+  my_implies(False, True ) = True
+  my_implies(False, False) = True
+
+STEP 6 -- evaluate on six expressions (the last one is EXPR from my own file)
+  evaluate(('and', True, ('not', False))) = True   (by hand: True) OK
+  evaluate(('or', False, False)) = False   (by hand: False) OK
+  evaluate(('implies', True, False)) = False   (by hand: False) OK
+  evaluate(('implies', False, False)) = True   (by hand: True) OK
+  evaluate(('not', ('and', True, ('or', False, True)))) = False   (by hand: False) OK
+  evaluate(('not', ('or', ('implies', True, False), ('and', False, True)))) = True   (by hand: True) OK
+  EXPR written out: not ((True implies False) or (False and True))
+
+STEP 7 -- ("or", True, ("and", 1/0, False))
+  The error exactly as Python reports it:
+  Traceback (most recent call last):
+    File "C:\Users\Administrator\OneDrive\Desktop\2310121-1\logic_ops.py", line 79, in <module>
+      expr = ('or', True, ('and', 1 / 0, False))
+                                  ~~^~~
+  ZeroDivisionError: division by zero
